@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
 use App\Models\Tag;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -11,7 +12,29 @@ class Homecontroller extends Controller
 {
 
     public function index(){
-        return view('dashboard');
+        $data["doctors"] = Doctor::get();
+        return view('dashboard',$data);
+    }
+    public function appointment(){
+        $events = [
+            [
+                'title' => 'Event 1',
+                'start' => '2024-10-10 10:00:00',
+                'end' => '2024-10-10 12:00:00',
+            ],
+            [
+                'title' => 'Event 2',
+                'start' => '2024-10-11 14:00:00',
+                'end' => '2024-10-11 16:00:00',
+            ],
+            [
+                'title' => 'Event 3',
+                'start' => '2024-10-12 09:00:00',
+                'end' => '2024-10-12 11:00:00',
+            ],
+        ];
+        
+        return view('appointment-date',compact('events'));
     }
     public function test(){
         //$post = Post::find(4);
